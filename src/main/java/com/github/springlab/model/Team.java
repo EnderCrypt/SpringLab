@@ -1,6 +1,9 @@
 package com.github.springlab.model;
 
-public class Team
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class Team extends Id
 {
 
 }

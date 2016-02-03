@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.github.springlab.statuses.UserStatus;
+
 @Entity
 public class User extends Id
 {
@@ -18,19 +20,21 @@ public class User extends Id
 	@Column(nullable = false)
 	private String password;
 	@Column(nullable = false)
-	private String userID;
+	private String userNumber;
+	@Column(name = "user_status", nullable = false)
+	private int userStatus;
 
 	protected User()
 	{
 	}
 
-	public User(String firstName, String lastName, String username, String password, String userID)
+	public User(String firstName, String lastName, String username, String password, String userNumber)
 	{
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.username = username;
 		this.password = password;
-		this.userID = userID;
+		this.userNumber = userNumber;
 	}
 
 	public String getUsername()
@@ -45,7 +49,7 @@ public class User extends Id
 
 	public String getUserID()
 	{
-		return userID;
+		return userNumber;
 	}
 
 	public String getFirstName()
@@ -58,12 +62,22 @@ public class User extends Id
 		return lastName;
 	}
 
+	public UserStatus getUserStatus()
+	{
+		return UserStatus.values()[userStatus];
+	}
+
+	public void setUserStatus(UserStatus userStatus)
+	{
+		this.userStatus = userStatus.ordinal();
+	}
+
 	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((userID == null) ? 0 : userID.hashCode());
+		result = prime * result + ((userNumber == null) ? 0 : userNumber.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -75,11 +89,11 @@ public class User extends Id
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
 		User other = (User) obj;
-		if (userID == null)
+		if (userNumber == null)
 		{
-			if (other.userID != null) return false;
+			if (other.userNumber != null) return false;
 		}
-		else if (!userID.equals(other.userID)) return false;
+		else if (!userNumber.equals(other.userNumber)) return false;
 		if (username == null)
 		{
 			if (other.username != null) return false;
