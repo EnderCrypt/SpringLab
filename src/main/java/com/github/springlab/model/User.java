@@ -1,7 +1,12 @@
 package com.github.springlab.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -23,6 +28,10 @@ public class User extends Id
 	private String userNumber;
 	@Column(name = "user_status", nullable = false)
 	private int userStatus;
+	@Column(nullable = false)
+	private Team userTeam;
+	@OneToOne
+	private Collection<WorkItem> workItems;
 
 	protected User()
 	{
@@ -35,6 +44,7 @@ public class User extends Id
 		this.username = username;
 		this.password = password;
 		this.userNumber = userNumber;
+		workItems = new HashSet<>();
 	}
 
 	public String getUsername()
@@ -70,6 +80,27 @@ public class User extends Id
 	public void setUserStatus(UserStatus userStatus)
 	{
 		this.userStatus = userStatus.ordinal();
+	}
+
+	public Team getUserTeam()
+	{
+		return userTeam;
+	}
+
+	public void setUserTeam(Team userTeam)
+	{
+		this.userTeam = userTeam;
+	}
+
+	public Collection<WorkItem> getWorkItem()
+	{
+		return new ArrayList<>(workItems);
+	}
+
+	public User addWorkItem(WorkItem workItem)
+	{
+		workItems.add(workItem);
+		return this;
 	}
 
 	@Override
