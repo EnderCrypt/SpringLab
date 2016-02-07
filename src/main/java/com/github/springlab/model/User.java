@@ -1,12 +1,11 @@
 package com.github.springlab.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -18,19 +17,26 @@ public class User extends Id
 {
 	@Column(nullable = false)
 	private String firstName;
+
 	@Column(nullable = false)
 	private String lastName;
+
 	@Column(nullable = false)
 	private String username;
+
 	@Column(nullable = false)
 	private String password;
-	@Column(nullable = false)
+
+	@Column(unique = true, nullable = false)
 	private String userNumber;
-	@Column(name = "user_status", nullable = false)
+
+	@Column(name = "status", nullable = false)
 	private int userStatus;
+
 	@Column(nullable = false)
-	private Team userTeam;
-	@OneToOne
+	private Team team;
+
+	@OneToMany
 	private Collection<WorkItem> workItems;
 
 	protected User()
@@ -57,7 +63,7 @@ public class User extends Id
 		return password;
 	}
 
-	public String getUserID()
+	public String getUserNumber()
 	{
 		return userNumber;
 	}
@@ -72,29 +78,29 @@ public class User extends Id
 		return lastName;
 	}
 
-	public UserStatus getUserStatus()
+	public UserStatus getStatus()
 	{
 		return UserStatus.values()[userStatus];
 	}
 
-	public void setUserStatus(UserStatus userStatus)
+	public void setStatus(UserStatus userStatus)
 	{
 		this.userStatus = userStatus.ordinal();
 	}
 
-	public Team getUserTeam()
+	public Team getTeam()
 	{
-		return userTeam;
+		return team;
 	}
 
-	public void setUserTeam(Team userTeam)
+	public void assignTeam(Team team)
 	{
-		this.userTeam = userTeam;
+		this.team = team;
 	}
 
-	public Collection<WorkItem> getWorkItem()
+	public Collection<WorkItem> getWorkItems()
 	{
-		return new ArrayList<>(workItems);
+		return new HashSet<>(workItems);
 	}
 
 	public User addWorkItem(WorkItem workItem)
@@ -114,7 +120,7 @@ public class User extends Id
 	}
 
 	@Override
-	public boolean equals(Object obj)
+	public boolean equals(Object obj) //note: gör inte såhär. skriv manuellt. Kolla Order i Datastorage-lab hur det görs
 	{
 		if (this == obj) return true;
 		if (obj == null) return false;

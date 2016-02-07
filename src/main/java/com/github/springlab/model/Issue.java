@@ -2,7 +2,6 @@ package com.github.springlab.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -14,8 +13,7 @@ public class Issue
 {
 	@Column(nullable = false)
 	private String description;
-	@OneToOne
-	private WorkItem workItem;
+
 	@Column(nullable = false)
 	private int issueStatus;
 
@@ -33,22 +31,12 @@ public class Issue
 		return description;
 	}
 
-	public WorkItem getWorkItem()
-	{
-		return workItem;
-	}
-
-	public void setWorkItem(WorkItem workItem)
-	{
-		this.workItem = workItem;
-	}
-
-	public IssueStatus getIssueStatus()
+	public IssueStatus getStatus()
 	{
 		return IssueStatus.values()[issueStatus];
 	}
 
-	public void setIssueStatus(IssueStatus issueStatus)
+	public void setStatus(IssueStatus issueStatus)
 	{
 		this.issueStatus = issueStatus.ordinal();
 	}

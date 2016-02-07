@@ -9,7 +9,6 @@ import com.github.springlab.repository.UserRepository;
 @Service
 public class UserService
 {
-	@Autowired
 	private UserRepository repository;
 
 	@Autowired

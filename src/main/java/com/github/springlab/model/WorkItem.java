@@ -1,6 +1,7 @@
 package com.github.springlab.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -14,14 +15,19 @@ public class WorkItem
 {
 	@Column(nullable = false)
 	private String topic;
+
 	@Column(nullable = false)
 	private String description;
+
 	@OneToOne
 	private User user;
+
 	@OneToOne
+	@Embedded
 	private Issue issue;
-	@Column(name = "item_status", nullable = false)
-	private int itemStatus;
+
+	@Column(name = "status", nullable = false)
+	private int workItemStatus;
 
 	protected WorkItem()
 	{
@@ -43,12 +49,12 @@ public class WorkItem
 		return description;
 	}
 
-	public User getObject()
+	public User getAssignedUser()
 	{
 		return user;
 	}
 
-	public void setObject(User user)
+	public void assignUser(User user)
 	{
 		this.user = user;
 	}
@@ -58,19 +64,56 @@ public class WorkItem
 		return issue;
 	}
 
-	public void setIssue(Issue issue)
+	public void addIssue(Issue issue)
 	{
 		this.issue = issue;
 	}
 
-	public ItemStatus getItemStatus()
+	public ItemStatus getStatus()
 	{
-		return ItemStatus.values()[itemStatus];
+		return ItemStatus.values()[workItemStatus];
 	}
 
-	public void setItemStatus(ItemStatus ItemStatus)
+	public void setStatus(ItemStatus ItemStatus)
 	{
-		this.itemStatus = ItemStatus.ordinal();
+		this.workItemStatus = ItemStatus.ordinal();
+	}
+
+	public boolean hasIssue()
+	{
+		return issue != null;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime = 37;
+		int result = 1;
+		result += prime * (getTopic() == null ? 0 : getTopic().hashCode());
+		result += prime * (getDescription() == null ? 0 : getDescription().hashCode());
+
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (obj instanceof WorkItem)
+		{
+			WorkItem otherObj = (WorkItem) obj;
+			return getTopic().equals(otherObj.getTopic()) &&
+					getDescription().equals(otherObj.getDescription()) &&
+					getAssignedUser().equals(otherObj.getAssignedUser());
+		}
+		return false;
 	}
 
 	@Override

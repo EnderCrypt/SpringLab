@@ -1,4 +1,4 @@
-package com.github.springlab;
+package com.github.springlab.main;
 
 public class Main
 {
