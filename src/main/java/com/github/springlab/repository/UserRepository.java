@@ -20,12 +20,4 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>
 	List<User> findByUserNumber(String userNumber);
 
 	List<User> findByTeam(Team team);
-
-	// Eller om vi använder oss av nån av dom under,
-	// venne vad skillnaden är mellan Slice/Page och vad som är bäst
-
-	// Page<User> findByLastNameLike(String lastName, Pageable pageable);
-	// Slice<User> findByLastNameLike(String lastName, Pageable pageable);
-	// @Query("select u from #{#entityName} u where u.userID = ?1")
-	// List<user> getByUserID(String number);
 }

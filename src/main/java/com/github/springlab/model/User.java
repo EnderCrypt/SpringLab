@@ -120,23 +120,24 @@ public class User extends Id
 	}
 
 	@Override
-	public boolean equals(Object obj) //note: gör inte såhär. skriv manuellt. Kolla Order i Datastorage-lab hur det görs
+	public boolean equals(Object other)
 	{
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		User other = (User) obj;
-		if (userNumber == null)
+		if (this == other)
 		{
-			if (other.userNumber != null) return false;
+			return true;
 		}
-		else if (!userNumber.equals(other.userNumber)) return false;
-		if (username == null)
+		if (other == null)
 		{
-			if (other.username != null) return false;
+			return false;
 		}
-		else if (!username.equals(other.username)) return false;
-		return true;
+		if (other instanceof User)
+		{
+			User otherUser = (User) other;
+			return getUsername().equals(otherUser.getUsername()) &&
+					getUserNumber().equals(otherUser.getUserNumber());
+		}
+		return false;
+
 	}
 
 	@Override
