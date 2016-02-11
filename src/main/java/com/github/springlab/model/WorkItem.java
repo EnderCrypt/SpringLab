@@ -1,7 +1,6 @@
 package com.github.springlab.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -21,10 +20,6 @@ public class WorkItem
 
 	@OneToOne
 	private User user;
-
-	@OneToOne
-	@Embedded
-	private Issue issue;
 
 	@Column(name = "status", nullable = false)
 	private int workItemStatus;
@@ -59,16 +54,6 @@ public class WorkItem
 		this.user = user;
 	}
 
-	public Issue getIssue()
-	{
-		return issue;
-	}
-
-	public void addIssue(Issue issue)
-	{
-		this.issue = issue;
-	}
-
 	public ItemStatus getStatus()
 	{
 		return ItemStatus.values()[workItemStatus];
@@ -77,11 +62,6 @@ public class WorkItem
 	public void setStatus(ItemStatus ItemStatus)
 	{
 		this.workItemStatus = ItemStatus.ordinal();
-	}
-
-	public boolean hasIssue()
-	{
-		return issue != null;
 	}
 
 	@Override

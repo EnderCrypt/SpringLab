@@ -21,8 +21,9 @@ public class Issue
 	{
 	}
 
-	public Issue(String description)
+	public Issue(WorkItem workItem, String description)
 	{
+		workItem.addIssue(this);
 		this.description = description;
 	}
 
