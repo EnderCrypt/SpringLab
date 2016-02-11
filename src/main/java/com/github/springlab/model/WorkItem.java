@@ -2,7 +2,7 @@ package com.github.springlab.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -18,7 +18,7 @@ public class WorkItem
 	@Column(nullable = false)
 	private String description;
 
-	@OneToOne
+	@ManyToOne
 	private User user;
 
 	@Column(name = "status", nullable = false)
