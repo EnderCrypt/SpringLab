@@ -2,6 +2,7 @@ package com.github.springlab.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -16,6 +17,9 @@ public class Issue
 
 	@Column(nullable = false)
 	private int issueStatus;
+	
+	@OneToOne
+	private WorkItem workItem;
 
 	protected Issue()
 	{
@@ -23,7 +27,6 @@ public class Issue
 
 	public Issue(WorkItem workItem, String description)
 	{
-		workItem.addIssue(this);
 		this.description = description;
 	}
 
