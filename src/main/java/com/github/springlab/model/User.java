@@ -34,6 +34,9 @@ public class User extends Id
 	private int userStatus;
 
 	@Column(nullable = false)
+	private boolean active;
+
+	@Column(nullable = false)
 	private Team team;
 
 	@OneToMany
@@ -107,6 +110,21 @@ public class User extends Id
 	{
 		workItems.add(workItem);
 		return this;
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void activate()
+	{
+		active = true;
+	}
+
+	public void inactivate()
+	{
+		active = false;
 	}
 
 	@Override
