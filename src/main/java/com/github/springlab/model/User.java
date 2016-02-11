@@ -10,8 +10,6 @@ import javax.persistence.OneToMany;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.github.springlab.statuses.UserStatus;
-
 @Entity
 public class User extends Id
 {
@@ -29,9 +27,6 @@ public class User extends Id
 
 	@Column(unique = true, nullable = false)
 	private String userNumber;
-
-	@Column(name = "status", nullable = false)
-	private int userStatus;
 
 	@Column(nullable = false)
 	private boolean active;
@@ -79,16 +74,6 @@ public class User extends Id
 	public String getLastName()
 	{
 		return lastName;
-	}
-
-	public UserStatus getStatus()
-	{
-		return UserStatus.values()[userStatus];
-	}
-
-	public void setStatus(UserStatus userStatus)
-	{
-		this.userStatus = userStatus.ordinal();
 	}
 
 	public Team getTeam()
