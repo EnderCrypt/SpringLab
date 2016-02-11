@@ -1,11 +1,8 @@
 package com.github.springlab.model;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -31,11 +28,8 @@ public class User extends Id
 	@Column(nullable = false)
 	private boolean active;
 
-	@Column(nullable = false)
+	@ManyToOne
 	private Team team;
-
-	@OneToMany
-	private Collection<WorkItem> workItems;
 
 	protected User()
 	{
@@ -48,7 +42,6 @@ public class User extends Id
 		this.username = username;
 		this.password = password;
 		this.userNumber = userNumber;
-		workItems = new HashSet<>();
 	}
 
 	public String getUsername()
@@ -84,17 +77,6 @@ public class User extends Id
 	public void assignTeam(Team team)
 	{
 		this.team = team;
-	}
-
-	public Collection<WorkItem> getWorkItems()
-	{
-		return new HashSet<>(workItems);
-	}
-
-	public User addWorkItem(WorkItem workItem)
-	{
-		workItems.add(workItem);
-		return this;
 	}
 
 	public boolean isActive()
