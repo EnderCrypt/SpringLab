@@ -28,9 +28,9 @@ public class AppConfig
 
 		HikariConfig config = new HikariConfig();
 		config.setDriverClassName("com.mysql.jdbc.Driver");
-		config.setJdbcUrl("jdbc:mysql://localhost/spring_lab");
-		config.setUsername("root");
-		config.setPassword("root");
+		config.setJdbcUrl("jdbc:mysql://localhost/SpringLab");
+		config.setUsername("melent");
+		config.setPassword("654321");
 
 		return new HikariDataSource(config);
 	}

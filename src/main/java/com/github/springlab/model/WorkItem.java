@@ -1,9 +1,8 @@
 package com.github.springlab.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.github.springlab.statuses.ItemStatus;
 
 @Entity
-public class WorkItem
+public class WorkItem extends Id
 {
 	@Column(nullable = false)
 	private String topic;
@@ -19,15 +18,11 @@ public class WorkItem
 	@Column(nullable = false)
 	private String description;
 
-	@OneToOne
+	@ManyToOne
 	private User user;
 
-	@OneToOne
-	@Embedded
-	private Issue issue;
-
-	@Column(name = "status", nullable = false)
-	private int workItemStatus;
+	@Column(nullable = false)
+	private int itemStatus;
 
 	protected WorkItem()
 	{
@@ -59,29 +54,14 @@ public class WorkItem
 		this.user = user;
 	}
 
-	public Issue getIssue()
-	{
-		return issue;
-	}
-
-	public void addIssue(Issue issue)
-	{
-		this.issue = issue;
-	}
-
 	public ItemStatus getStatus()
 	{
-		return ItemStatus.values()[workItemStatus];
+		return ItemStatus.values()[itemStatus];
 	}
 
 	public void setStatus(ItemStatus ItemStatus)
 	{
-		this.workItemStatus = ItemStatus.ordinal();
-	}
-
-	public boolean hasIssue()
-	{
-		return issue != null;
+		this.itemStatus = ItemStatus.ordinal();
 	}
 
 	@Override

@@ -1,21 +1,25 @@
 package com.github.springlab.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.github.springlab.statuses.IssueStatus;
 
-@Embeddable
-public class Issue
+@Entity
+public class Issue extends Id
 {
 	@Column(nullable = false)
 	private String description;
 
 	@Column(nullable = false)
 	private int issueStatus;
+
+	@OneToOne
+	private WorkItem workItem;
 
 	protected Issue()
 	{

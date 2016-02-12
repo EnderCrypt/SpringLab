@@ -1,8 +1,5 @@
 package com.github.springlab.model;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -14,9 +11,7 @@ public class Team extends Id
 	@Column
 	private String name;
 	@Column
-	private int status;
-	@Column
-	private Collection<User> users;
+	private int teamStatus;
 
 	protected Team()
 	{
@@ -25,7 +20,6 @@ public class Team extends Id
 	public Team(String name)
 	{
 		this.name = name;
-		users = new HashSet<>();
 	}
 
 	public String getName()
@@ -40,22 +34,11 @@ public class Team extends Id
 
 	public TeamStatus getStatus()
 	{
-		return TeamStatus.values()[status];
+		return TeamStatus.values()[teamStatus];
 	}
 
-	public void setStatus(TeamStatus status)
+	public void setStatus(TeamStatus teamStatus)
 	{
-		this.status = status.ordinal();
+		this.teamStatus = teamStatus.ordinal();
 	}
-
-	public Collection<User> getUsers()
-	{
-		return new HashSet<>(users);
-	}
-
-	public void addUser(User user)
-	{
-		users.add(user);
-	}
-
 }
