@@ -25,8 +25,9 @@ public class Issue extends Id
 	{
 	}
 
-	public Issue(String description)
+	public Issue(WorkItem workItem, String description)
 	{
+		this.workItem = workItem;
 		this.description = description;
 	}
 

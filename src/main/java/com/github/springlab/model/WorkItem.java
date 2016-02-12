@@ -24,6 +24,9 @@ public class WorkItem extends Id
 	@Column(nullable = false)
 	private int itemStatus;
 
+	@Column(name = "status", nullable = false)
+	private int workItemStatus;
+
 	protected WorkItem()
 	{
 	}
@@ -62,6 +65,7 @@ public class WorkItem extends Id
 	public void setStatus(ItemStatus ItemStatus)
 	{
 		this.itemStatus = ItemStatus.ordinal();
+		this.workItemStatus = ItemStatus.ordinal();
 	}
 
 	@Override
