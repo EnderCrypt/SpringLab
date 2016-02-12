@@ -15,7 +15,7 @@ public class Issue extends Id
 	@Column(nullable = false)
 	private String description;
 
-	@Column(nullable = false)
+	@Column(name = "status", nullable = false)
 	private int issueStatus;
 
 	@OneToOne

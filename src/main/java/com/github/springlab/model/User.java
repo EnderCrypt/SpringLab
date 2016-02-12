@@ -22,7 +22,7 @@ public class User extends Id
 	@Column(nullable = false)
 	private String password;
 
-	@Column(unique = true, nullable = false)
+	@Column(name = "user_nbr", unique = true, nullable = false)
 	private String userNumber;
 
 	@Column(nullable = false)
@@ -79,7 +79,7 @@ public class User extends Id
 		active = true;
 	}
 
-	public void inactivate()
+	public void deactivate()
 	{
 		active = false;
 	}

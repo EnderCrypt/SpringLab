@@ -10,7 +10,7 @@ public class Team extends Id
 {
 	@Column
 	private String name;
-	@Column
+	@Column(name = "status")
 	private int teamStatus;
 
 	protected Team()

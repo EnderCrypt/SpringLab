@@ -21,11 +21,8 @@ public class WorkItem extends Id
 	@ManyToOne
 	private User user;
 
-	@Column(nullable = false)
-	private int itemStatus;
-
 	@Column(name = "status", nullable = false)
-	private int workItemStatus;
+	private int itemStatus;
 
 	protected WorkItem()
 	{
@@ -65,7 +62,6 @@ public class WorkItem extends Id
 	public void setStatus(ItemStatus ItemStatus)
 	{
 		this.itemStatus = ItemStatus.ordinal();
-		this.workItemStatus = ItemStatus.ordinal();
 	}
 
 	@Override
