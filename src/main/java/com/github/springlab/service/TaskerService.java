@@ -19,7 +19,6 @@ public class TaskerService
 
 	public TaskerService(UserRepository userRepository, TeamRepository teamRepository, WorkItemRepository workItemRepository, IssueRepository issueRepository)
 	{
-		super();
 		this.userRepository = userRepository;
 		this.teamRepository = teamRepository;
 		this.workItemRepository = workItemRepository;
