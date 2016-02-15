@@ -46,6 +46,11 @@ public class Issue extends Id
 		this.issueStatus = issueStatus.ordinal();
 	}
 
+	public WorkItem getWorkItem()
+	{
+		return workItem;
+	}
+
 	@Override
 	public String toString()
 	{

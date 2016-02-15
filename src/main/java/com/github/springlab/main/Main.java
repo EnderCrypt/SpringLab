@@ -41,6 +41,9 @@ public class Main
 			workRepo.save(item);
 			issueRepo.save(issue);
 
+			//			issueRepo.findAll().forEach(System.out::println);
+			workRepo.findByAssignedUser_Team(team).forEach(System.out::println);
+
 		}
 	}
 

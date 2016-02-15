@@ -2,6 +2,8 @@ package com.github.springlab.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.github.springlab.model.User;
 import com.github.springlab.model.WorkItem;
 import com.github.springlab.repository.IssueRepository;
@@ -17,6 +19,7 @@ public class TaskerService
 	private WorkItemRepository workItemRepository;
 	private IssueRepository issueRepository;
 
+	@Autowired
 	public TaskerService(UserRepository userRepository, TeamRepository teamRepository, WorkItemRepository workItemRepository, IssueRepository issueRepository)
 	{
 		this.userRepository = userRepository;
@@ -29,11 +32,11 @@ public class TaskerService
 	{
 		if (user.getUsername().length() > 10)
 		{
-			throw new RuntimeException(); // TODO: exception
+			throw new InvalidUserException("Username cannot exceed 10 characters!"); // TODO: exception
 		}
 		if (user.isActive() == false)
 		{
-			List<WorkItem> workItems = workItemRepository.findByUser(user);
+			List<WorkItem> workItems = workItemRepository.findByAssignedUser(user);
 			for (WorkItem workItem : workItems)
 			{
 				workItem.setStatus(ItemStatus.UNSTARTED);
@@ -42,6 +45,7 @@ public class TaskerService
 		}
 		userRepository.save(user);
 	}
+	//	public void deactivateUser
 
 	public void update(WorkItem workItem)
 	{

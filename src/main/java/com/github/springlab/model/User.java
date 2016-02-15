@@ -26,7 +26,7 @@ public class User extends Id
 	private String userNumber;
 
 	@Column(nullable = false)
-	private boolean active;
+	private boolean isActive;
 
 	@ManyToOne
 	private Team team;
@@ -71,17 +71,17 @@ public class User extends Id
 
 	public boolean isActive()
 	{
-		return active;
+		return isActive;
 	}
 
 	public void activate()
 	{
-		active = true;
+		isActive = true;
 	}
 
 	public void deactivate()
 	{
-		active = false;
+		isActive = false;
 	}
 
 	public void assignTeam(Team team)

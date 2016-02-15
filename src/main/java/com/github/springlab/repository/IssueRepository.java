@@ -6,5 +6,4 @@ import com.github.springlab.model.Issue;
 
 public interface IssueRepository extends PagingAndSortingRepository<Issue, Long>
 {
-	//	List<Issue> findByWorkItem(WorkItem topic);
 }

@@ -19,7 +19,7 @@ public class WorkItem extends Id
 	private String description;
 
 	@ManyToOne
-	private User user;
+	private User assignedUser;
 
 	@Column(name = "status", nullable = false)
 	private int itemStatus;
@@ -46,12 +46,12 @@ public class WorkItem extends Id
 
 	public User getAssignedUser()
 	{
-		return user;
+		return assignedUser;
 	}
 
 	public void assignUser(User user)
 	{
-		this.user = user;
+		this.assignedUser = user;
 	}
 
 	public ItemStatus getStatus()
