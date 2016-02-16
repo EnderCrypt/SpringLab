@@ -45,7 +45,6 @@ public class TaskerService
 		}
 		userRepository.save(user);
 	}
-	//	public void deactivateUser
 
 	public void update(WorkItem workItem)
 	{

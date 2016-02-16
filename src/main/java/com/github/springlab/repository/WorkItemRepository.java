@@ -3,6 +3,7 @@ package com.github.springlab.repository;
 import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springlab.model.Team;
 import com.github.springlab.model.User;
@@ -19,4 +20,7 @@ public interface WorkItemRepository extends PagingAndSortingRepository<WorkItem,
 	List<WorkItem> findByTopicLike(String topic);
 
 	List<WorkItem> findByAssignedUser_Team(Team team);
+
+	@Transactional
+	void delete(WorkItem workItem);
 }

@@ -10,6 +10,7 @@ import com.github.springlab.repository.IssueRepository;
 import com.github.springlab.repository.TeamRepository;
 import com.github.springlab.repository.UserRepository;
 import com.github.springlab.repository.WorkItemRepository;
+import com.github.springlab.statuses.ItemStatus;
 import com.github.springlab.statuses.TeamStatus;
 
 public class Main
@@ -34,6 +35,7 @@ public class Main
 
 			team.setStatus(TeamStatus.ACTIVE);
 			user.assignTeam(team);
+			item.setStatus(ItemStatus.DONE);
 			item.assignUser(user);
 
 			teamRepo.save(team);
@@ -42,8 +44,7 @@ public class Main
 			issueRepo.save(issue);
 
 			//			issueRepo.findAll().forEach(System.out::println);
-			workRepo.findByAssignedUser_Team(team).forEach(System.out::println);
-
+			//			workRepo.findByAssignedUser_Team(team).forEach(System.out::println);
 		}
 	}
 
