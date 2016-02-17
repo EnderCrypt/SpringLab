@@ -83,6 +83,7 @@ public class User extends Id
 	public void deactivate()
 	{
 		isActive = false;
+		team = null;
 	}
 
 	public void assignTeam(Team team)
