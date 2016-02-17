@@ -32,6 +32,13 @@ public class TaskerService
 		this.issueRepository = issueRepository;
 	}
 
+	// ------------------TEAM------------------
+
+	public void update(Team team)
+	{
+		teamRepository.save(team);
+	}
+
 	// ------------------USER------------------
 
 	public void update(User user)
