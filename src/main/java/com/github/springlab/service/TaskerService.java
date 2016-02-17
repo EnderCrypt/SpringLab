@@ -1,9 +1,12 @@
 package com.github.springlab.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.github.springlab.model.Issue;
 import com.github.springlab.model.Team;
 import com.github.springlab.model.User;
 import com.github.springlab.model.WorkItem;
@@ -70,6 +73,30 @@ public class TaskerService
 			throw new InvalidUserException("cannot store more than 5 workitems at any time");
 		}
 		workItemRepository.save(workItem);
+	}
+
+	// -------------------- ISSUE -------------------- //
+	public void update(Issue issue)
+	{
+		if (issue.getWorkItem().getStatus() == ItemStatus.DONE)
+		{
+			issue.getWorkItem().setStatus(ItemStatus.UNSTARTED);
+			issueRepository.save(issue);
+		}
+		else
+		{
+			throw new InvalidItemException("Cannot add issue to unfinished work item!");
+		}
+	}
+
+	public Set<WorkItem> getItemsWithIssue()
+	{
+		Set<WorkItem> wItems = new HashSet<>();
+		for (Issue issue : issueRepository.findAll())
+		{
+			wItems.add(issue.getWorkItem());
+		}
+		return wItems;
 	}
 
 }
