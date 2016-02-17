@@ -13,7 +13,7 @@ public interface WorkItemRepository extends PagingAndSortingRepository<WorkItem,
 {
 	List<WorkItem> findByAssignedUser(User assignedUser);
 
-	List<WorkItem> findByItemStatus(int itemStatus); //BAD, uses int
+	List<WorkItem> findByItemStatus(int itemStatus);
 
 	List<WorkItem> findByDescriptionLike(String description);
 

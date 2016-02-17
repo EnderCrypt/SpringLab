@@ -58,6 +58,18 @@ public class TaskerService
 				update(workItem);
 			}
 		}
+		int connectedUsers = userRepository.findByTeam(user.getTeam()).size();
+		if (user.hasId())
+		{
+			if (userRepository.findOne(user.getId()) == null)
+			{
+				connectedUsers--;
+			}
+		}
+		if (connectedUsers > 9)
+		{
+			throw new InvalidTeamException("team does not allow more than 10 users at any time");
+		}
 		userRepository.save(user);
 	}
 
