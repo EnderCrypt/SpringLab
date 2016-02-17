@@ -6,6 +6,10 @@ import com.github.springlab.model.Issue;
 import com.github.springlab.model.Team;
 import com.github.springlab.model.User;
 import com.github.springlab.model.WorkItem;
+import com.github.springlab.repository.IssueRepository;
+import com.github.springlab.repository.TeamRepository;
+import com.github.springlab.repository.UserRepository;
+import com.github.springlab.repository.WorkItemRepository;
 import com.github.springlab.service.TaskerService;
 import com.github.springlab.statuses.ItemStatus;
 
@@ -19,7 +23,12 @@ public class Main
 			context.scan("com.github.springlab");
 			context.refresh();
 
-			TaskerService service = context.getBean(TaskerService.class);
+			TeamRepository teamRepo = context.getBean(TeamRepository.class);
+			UserRepository userRepo = context.getBean(UserRepository.class);
+			WorkItemRepository workRepo = context.getBean(WorkItemRepository.class);
+			IssueRepository issueRepo = context.getBean(IssueRepository.class);
+
+			TaskerService service = new TaskerService(userRepo, teamRepo, workRepo, issueRepo);
 
 			Team team = new Team("yhc3l");
 			service.update(team);
