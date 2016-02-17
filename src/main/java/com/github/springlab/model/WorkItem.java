@@ -71,7 +71,7 @@ public class WorkItem extends Id
 		int result = 1;
 		result += prime * (getTopic() == null ? 0 : getTopic().hashCode());
 		result += prime * (getDescription() == null ? 0 : getDescription().hashCode());
-
+		result += prime * (getAssignedUser() == null ? 0 : getAssignedUser().hashCode());
 		return result;
 	}
 

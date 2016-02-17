@@ -58,6 +58,36 @@ public class Issue extends Id
 	}
 
 	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((workItem == null) ? 0 : workItem.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (obj instanceof Issue)
+		{
+			Issue otherIssue = (Issue) obj;
+			return getDescription().equals(otherIssue.getDescription()) &&
+					getWorkItem().equals(otherIssue.getWorkItem());
+		}
+		return false;
+	}
+
+	@Override
 	public String toString()
 	{
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
