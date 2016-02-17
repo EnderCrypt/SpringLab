@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springlab.model.Issue;
+import com.github.springlab.model.Team;
 import com.github.springlab.model.User;
 import com.github.springlab.model.WorkItem;
 import com.github.springlab.repository.IssueRepository;
@@ -31,11 +32,14 @@ public class TaskerService
 		this.issueRepository = issueRepository;
 	}
 
+	// ------------------USER------------------
+
 	public void update(User user)
 	{
 		if (user.getUsername().length() > 10)
 		{
-			throw new InvalidUserException("Username cannot exceed 10 characters!"); // TODO: exception
+			throw new InvalidUserException("Username cannot exceed 10 characters!"); // TODO:
+																						// exception
 		}
 		if (user.isActive() == false)
 		{
@@ -49,9 +53,50 @@ public class TaskerService
 		userRepository.save(user);
 	}
 
-	public void update(WorkItem workItem)
+	public List<User> getByTeam(Team team)
 	{
+		return userRepository.findByTeam(team);
+	}
 
+	public List<User> getByUserNumber(String userNumber)
+	{
+		return userRepository.findByUserNumber(userNumber);
+	}
+
+	public List<User> getByUsername(String username)
+	{
+		return userRepository.findByUsernameLike(username);
+	}
+
+	public List<User> getByLastNameLike(String lastName)
+	{
+		return userRepository.findByLastNameLike(lastName);
+	}
+
+	// -----------------WORKITEM-------------------
+
+	private void update(WorkItem workItem)
+	{
+		// must have active user
+		if (workItem.getAssignedUser().isActive() == false)
+		{
+			throw new InvalidUserException("The assigned user is inactive");
+		}
+		// user has maximum of 5 workitems
+		int connectedWorkitems = workItemRepository.findByAssignedUser(workItem.getAssignedUser()).size();
+		if (workItem.hasId())
+		{
+			if (workItemRepository.findOne(workItem.getId()) == null)
+			{
+				connectedWorkitems--;
+			}
+		}
+		if (connectedWorkitems > 4)
+		{
+			throw new InvalidUserException("cannot store more than 5 workitems at any time");
+		}
+		// save
+		workItemRepository.save(workItem);
 	}
 
 	// -------------------- ISSUE -------------------- //
