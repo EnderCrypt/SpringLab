@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springlab.model.Issue;
+import com.github.springlab.model.Team;
 import com.github.springlab.model.User;
 import com.github.springlab.model.WorkItem;
 import com.github.springlab.repository.IssueRepository;
