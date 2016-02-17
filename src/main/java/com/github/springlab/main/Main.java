@@ -39,6 +39,9 @@ public class Main
 			user.deactivate();
 			service.update(user);
 
+			team.deactivate();
+			service.update(team);
+
 		}
 	}
 

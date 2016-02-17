@@ -16,7 +16,7 @@ public class Team extends Id
 	private int teamStatus;
 
 	@Column(name = "is_active", nullable = false)
-	private boolean isActive;
+	private boolean isActive = true;
 
 	protected Team()
 	{
@@ -47,7 +47,7 @@ public class Team extends Id
 		isActive = true;
 	}
 
-	public void deActivate()
+	public void deactivate()
 	{
 		isActive = false;
 	}

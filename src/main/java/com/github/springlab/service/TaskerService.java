@@ -40,6 +40,14 @@ public class TaskerService
 	public void update(Team team)
 	{
 		teamRepository.save(team);
+		if (team.isActive() == false)
+		{
+			for (User user : userRepository.findByTeam(team))
+			{
+				user.assignTeam(null);
+				update(user);
+			}
+		}
 	}
 
 	// ------------------USER------------------
@@ -73,6 +81,11 @@ public class TaskerService
 		}
 		userRepository.save(user);
 	}
+
+	//	public List<User> getAll()
+	//	{
+	//		return userRepository.findAll();
+	//	}
 
 	// -----------------WORKITEM-------------------
 
