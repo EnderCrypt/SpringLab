@@ -35,8 +35,7 @@ public class TaskerService
 	{
 		if (user.getUsername().length() > 10)
 		{
-			throw new InvalidUserException("Username cannot exceed 10 characters!"); // TODO:
-																						// exception
+			throw new InvalidUserException("Username cannot exceed 10 characters!");
 		}
 		if (user.isActive() == false)
 		{
@@ -50,36 +49,14 @@ public class TaskerService
 		userRepository.save(user);
 	}
 
-	public List<User> getByTeam(Team team)
-	{
-		return userRepository.findByTeam(team);
-	}
-
-	public List<User> getByUserNumber(String userNumber)
-	{
-		return userRepository.findByUserNumber(userNumber);
-	}
-
-	public List<User> getByUsername(String username)
-	{
-		return userRepository.findByUsernameLike(username);
-	}
-
-	public List<User> getByLastNameLike(String lastName)
-	{
-		return userRepository.findByLastNameLike(lastName);
-	}
-
 	// -----------------WORKITEM-------------------
 
 	private void update(WorkItem workItem)
 	{
-		// must have active user
 		if (workItem.getAssignedUser().isActive() == false)
 		{
 			throw new InvalidUserException("The assigned user is inactive");
 		}
-		// user has maximum of 5 workitems
 		int connectedWorkitems = workItemRepository.findByAssignedUser(workItem.getAssignedUser()).size();
 		if (workItem.hasId())
 		{
@@ -92,7 +69,6 @@ public class TaskerService
 		{
 			throw new InvalidUserException("cannot store more than 5 workitems at any time");
 		}
-		// save
 		workItemRepository.save(workItem);
 	}
 
