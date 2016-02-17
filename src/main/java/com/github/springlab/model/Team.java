@@ -13,8 +13,10 @@ public class Team extends Id
 {
 	@Column(nullable = false)
 	private String name;
+
 	@Column(name = "status", nullable = false)
 	private int teamStatus;
+
 	@Column(name = "is_active", nullable = false)
 	private boolean isActive;
 
