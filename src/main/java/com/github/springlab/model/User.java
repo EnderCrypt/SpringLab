@@ -119,7 +119,7 @@ public class User extends Id
 		if (other instanceof User)
 		{
 			User otherUser = (User) other;
-			return getUsername().equals(otherUser.getUsername()) ||
+			return getUsername().equals(otherUser.getUsername()) &&
 					getUserNumber().equals(otherUser.getUserNumber());
 		}
 		return false;
