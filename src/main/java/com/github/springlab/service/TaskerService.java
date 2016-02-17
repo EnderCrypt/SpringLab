@@ -48,7 +48,26 @@ public class TaskerService
 
 	public void update(WorkItem workItem)
 	{
-
+		// must have active user
+		if (workItem.getAssignedUser().isActive() == false)
+		{
+			throw new InvalidUserException("The assigned user is inactive");
+		}
+		// user has maximum of 5 workitems
+		int connectedWorkitems = workItemRepository.findByAssignedUser(workItem.getAssignedUser()).size();
+		if (workItem.hasId())
+		{
+			if (workItemRepository.findOne(workItem.getId()) == null)
+			{
+				connectedWorkitems--;
+			}
+		}
+		if (connectedWorkitems > 4)
+		{
+			throw new InvalidUserException("cannot store more than 5 workitems at any time");
+		}
+		// save
+		workItemRepository.save(workItem);
 	}
 
 }
