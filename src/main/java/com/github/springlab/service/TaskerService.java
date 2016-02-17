@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.springlab.model.Issue;
 import com.github.springlab.model.Team;
@@ -16,6 +17,7 @@ import com.github.springlab.repository.UserRepository;
 import com.github.springlab.repository.WorkItemRepository;
 import com.github.springlab.statuses.ItemStatus;
 
+@Service
 public class TaskerService
 {
 	private UserRepository userRepository;
@@ -61,7 +63,7 @@ public class TaskerService
 
 	// -----------------WORKITEM-------------------
 
-	private void update(WorkItem workItem)
+	public void update(WorkItem workItem)
 	{
 		if (workItem.getAssignedUser().isActive() == false)
 		{

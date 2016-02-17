@@ -1,6 +1,5 @@
 package com.github.springlab.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -27,9 +26,9 @@ public class User extends Id
 	private String userNumber;
 
 	@Column(nullable = false)
-	private boolean isActive;
+	private boolean isActive = true;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne //(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	private Team team;
 
 	protected User()

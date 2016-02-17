@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.github.springlab.statuses.TeamStatus;
-
 @Entity
 public class Team extends Id
 {
@@ -35,16 +33,6 @@ public class Team extends Id
 	public void setName(String name)
 	{
 		this.name = name;
-	}
-
-	public TeamStatus getStatus()
-	{
-		return TeamStatus.values()[teamStatus];
-	}
-
-	public void setStatus(TeamStatus teamStatus)
-	{
-		this.teamStatus = teamStatus.ordinal();
 	}
 
 	public boolean isActive()

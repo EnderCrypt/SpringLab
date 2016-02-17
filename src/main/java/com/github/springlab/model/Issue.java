@@ -1,6 +1,5 @@
 package com.github.springlab.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -19,7 +18,7 @@ public class Issue extends Id
 	@Column(name = "status", nullable = false)
 	private int issueStatus;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
+	@OneToOne //(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	private WorkItem workItem;
 
 	protected Issue()
