@@ -35,6 +35,10 @@ public class Main
 
 			Issue issue = new Issue(item1, "Weird encounter with \"missingno\". What is that?");
 			service.update(issue);
+
+			user.deactivate();
+			service.update(user);
+
 		}
 	}
 

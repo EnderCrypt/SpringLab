@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springlab.model.Issue;
 import com.github.springlab.model.Team;
@@ -77,9 +78,13 @@ public class TaskerService
 
 	public void update(WorkItem workItem)
 	{
+		if (workItem.getAssignedUser() == null)
+		{
+			throw new InvalidUserException("Cannot persist item with no user assigned!");
+		}
 		if (workItem.getAssignedUser().isActive() == false)
 		{
-			throw new InvalidUserException("The assigned user is inactive");
+			throw new InvalidUserException("Cannot assign item to inactive user!");
 		}
 		int connectedWorkitems = workItemRepository.findByAssignedUser(workItem.getAssignedUser()).size();
 		if (workItem.hasId())
@@ -99,6 +104,17 @@ public class TaskerService
 	public List<WorkItem> getByStatus(ItemStatus status)
 	{
 		return workItemRepository.findByItemStatus(status.ordinal());
+	}
+
+	@Transactional
+	public void removeItem(WorkItem workItem)
+	{
+		workItem.assignUser(null);
+		for (Issue issue : issueRepository.findByWorkItem(workItem))
+		{
+			issue.setWorkItem(null);
+		}
+		workItemRepository.delete(workItem.getId());
 	}
 
 	// -------------------- ISSUE -------------------- //
