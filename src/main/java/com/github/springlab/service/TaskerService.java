@@ -67,17 +67,12 @@ public class TaskerService
 				update(workItem);
 			}
 		}
-		int connectedUsers = userRepository.findByTeam(user.getTeam()).size();
-		if (user.hasId())
+		if (!user.hasId())
 		{
-			if (userRepository.findOne(user.getId()) == null)
+			if (userRepository.findByTeam(user.getTeam()).size() > 9)
 			{
-				connectedUsers--;
+				throw new InvalidTeamException("team does not allow more than 10 users at any time");
 			}
-		}
-		if (connectedUsers > 9)
-		{
-			throw new InvalidTeamException("team does not allow more than 10 users at any time");
 		}
 		userRepository.save(user);
 	}
@@ -99,17 +94,12 @@ public class TaskerService
 		{
 			throw new InvalidUserException("Cannot assign item to inactive user!");
 		}
-		int connectedWorkitems = workItemRepository.findByAssignedUser(workItem.getAssignedUser()).size();
-		if (workItem.hasId())
+		if (!workItem.hasId())
 		{
-			if (workItemRepository.findOne(workItem.getId()) == null)
+			if (workItemRepository.findByAssignedUser(workItem.getAssignedUser()).size() > 4)
 			{
-				connectedWorkitems--;
+				throw new InvalidUserException("cannot store more than 5 workitems at any time");
 			}
-		}
-		if (connectedWorkitems > 4)
-		{
-			throw new InvalidUserException("cannot store more than 5 workitems at any time");
 		}
 		workItemRepository.save(workItem);
 	}
